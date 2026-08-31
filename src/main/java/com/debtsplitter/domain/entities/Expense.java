@@ -27,9 +27,9 @@ public class Expense {
         if (amount == null) {
             throw new IllegalArgumentException("amount is null");
         }
-//        if (amount.isNegative()) {
-//            throw new NonPositiveAmountException(amount.getAmount().toString());
-//        }
+        if (amount.isNegative()) {
+            throw new NonPositiveAmountException(amount.getAmount().toString());
+        }
         if (amount.isZero()) {
             throw new InvalidAmoundFormatException("amount is zero");
         }
