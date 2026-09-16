@@ -41,6 +41,7 @@ public class Main {
         try {
             var users1 = List.of(user1, user2, user3);
             var badGroup2 = new Group("test2", users1);
+            var expense2 = new Expense(user1, amound, badGroup2);
         } catch (SelfDebtException ex) {
             ex.printStackTrace();
         }
