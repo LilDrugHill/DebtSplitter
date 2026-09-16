@@ -1,8 +1,7 @@
-package com.debtsplitter.domain.valueObjects;
+package com.debtsplitter.domain.model.valueObjects;
 
-import com.debtsplitter.domain.exceptions.CurrencyMismatchException;
-import com.debtsplitter.domain.exceptions.DomainException;
-import com.debtsplitter.domain.exceptions.InvalidAmoundFormatException;
+import com.debtsplitter.domain.model.exceptions.CurrencyMismatchException;
+import com.debtsplitter.domain.model.exceptions.InvalidAmoundFormatException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
