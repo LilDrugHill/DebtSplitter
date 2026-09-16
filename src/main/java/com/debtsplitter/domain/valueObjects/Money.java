@@ -79,8 +79,11 @@ public class Money implements Comparable<Money> {
         var part = this.amount.divide(BigDecimal.valueOf(N), 2, RoundingMode.DOWN);
         var remainder = this.amount.subtract(part.multiply(BigDecimal.valueOf(N)));
         for (var i = 0; i < N; i++) {
-            if (i == 0) store.add(Money.of(part.add(remainder).toString()));
-            store.add(Money.of(part.toString()));
+            if (i == 0) {
+                store.add(Money.of(part.add(remainder).toString()));
+            } else {
+                store.add(Money.of(part.toString()));
+            }
         }
         return store;
     }
