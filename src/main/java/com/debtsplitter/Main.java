@@ -1,16 +1,15 @@
 package com.debtsplitter;
 
-import com.debtsplitter.domain.entities.Expense;
-import com.debtsplitter.domain.entities.Group;
-import com.debtsplitter.domain.entities.User;
-import com.debtsplitter.domain.exceptions.InvalidAmoundFormatException;
-import com.debtsplitter.domain.exceptions.NonPositiveAmountException;
-import com.debtsplitter.domain.exceptions.SelfDebtException;
-import com.debtsplitter.domain.valueObjects.Money;
+import com.debtsplitter.domain.model.entities.Expense;
+import com.debtsplitter.domain.model.entities.Group;
+import com.debtsplitter.domain.model.entities.User;
+import com.debtsplitter.domain.model.exceptions.InvalidAmoundFormatException;
+import com.debtsplitter.domain.model.exceptions.NonPositiveAmountException;
+import com.debtsplitter.domain.model.exceptions.SelfDebtException;
+import com.debtsplitter.domain.model.valueObjects.Money;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
