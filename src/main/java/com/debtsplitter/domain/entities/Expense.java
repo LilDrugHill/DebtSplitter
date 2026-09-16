@@ -31,7 +31,7 @@ public class Expense {
             throw new NonPositiveAmountException(amount.getAmount().toString());
         }
         if (amount.isZero()) {
-            throw new InvalidAmoundFormatException("amount is zero");
+            throw new NonPositiveAmountException("amount is zero");
         }
         this.amount = amount;
 
