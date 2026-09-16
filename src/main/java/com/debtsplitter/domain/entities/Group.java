@@ -35,7 +35,7 @@ public class Group {
         if (tempParticipant.isEmpty()) {
             throw new IllegalArgumentException("participants cannot be null");
         }
-        if (participants.isEmpty()) {
+        if (tempParticipant.size() < 2) {
             throw new IllegalArgumentException("participants must have at least 2 participants");
         }
         this.participants = tempParticipant;
