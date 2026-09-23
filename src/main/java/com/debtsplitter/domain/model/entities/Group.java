@@ -1,16 +1,21 @@
 package com.debtsplitter.domain.model.entities;
 
+import com.debtsplitter.domain.model.valueObjects.ExpenseId;
+import com.debtsplitter.domain.model.valueObjects.GroupId;
+import com.debtsplitter.domain.model.valueObjects.UserId;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.UUID;
 
 public class Group {
-    final private Integer id;
+    final private GroupId id;
 
     private String name;
-    private final List<User> participants;
+    private final List<UserId> participants;
 
-    public List<User> getParticipants() {
+    public List<UserId> getParticipants() {
         return List.copyOf(participants);
     }
 
@@ -24,11 +29,12 @@ public class Group {
         this.name = name;
     }
 
-    public Group(String name, List<User> participants) {
+    public Group(String name, List<UserId> participants) {
 
         var tempParticipant = List.copyOf(participants);
 
-        this.id = new Random().nextInt();
+        this.id = new GroupId(UUID.randomUUID().toString());
+
         setName(name);
 
         if (tempParticipant.isEmpty()) {
@@ -40,20 +46,20 @@ public class Group {
         this.participants = tempParticipant;
     }
 
-    public Integer getId() {
+    public GroupId getId() {
         return id;
     }
 
     @Override
     public int hashCode() {
-        if (id == null) return 24;
         return Objects.hash(id);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof Group)) return false;
-        return (this.id != null && this.id.equals(((Group) obj).getId()));
+        if (!(obj instanceof GroupId)) return false;
+        return (this.id != null
+                && Integer.parseInt(id.id()) == Integer.parseInt(((GroupId) obj).id()));
     }
 }

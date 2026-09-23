@@ -2,22 +2,30 @@ package com.debtsplitter.domain.model.entities;
 
 import com.debtsplitter.domain.model.exceptions.NonPositiveAmountException;
 import com.debtsplitter.domain.model.exceptions.SelfDebtException;
+import com.debtsplitter.domain.model.valueObjects.ExpenseId;
+import com.debtsplitter.domain.model.valueObjects.GroupId;
 import com.debtsplitter.domain.model.valueObjects.Money;
+import com.debtsplitter.domain.model.valueObjects.UserId;
 
 import java.util.*;
 
 public class Expense {
-    final private Integer id;
-    final private User payer;
+    final private ExpenseId id;
+    final private UserId paidBy;
     final private Money amount;
-    final private Group group;
+    final private GroupId group;
+    final private Date createdAt = new Date();
+    final private Date spendAt;
 
-    public Expense(User payer, Money amount, Group group) {
 
-        this.id = new Random().nextInt();
+    public Expense(ExpenseId id, UserId paidBy, Money amount, GroupId group) {}
 
-        if (payer != null) {
-            this.payer = payer;
+    public Expense(UserId paidBy, Money amount, GroupId groupId) {
+
+        this.id = new ExpenseId(UUID.randomUUID().toString());
+
+        if (paidBy != null) {
+            this.paidBy = paidBy;
         } else {
             throw  new IllegalArgumentException("payer is null");
         }
@@ -33,7 +41,7 @@ public class Expense {
         }
         this.amount = amount;
 
-        if (group == null) {
+        if (groupId == null) {
             throw  new IllegalArgumentException("group is null");
         }
         if (group.getParticipants().contains(payer)) {
@@ -42,6 +50,11 @@ public class Expense {
                                                                                 group.getId()));
         }
         this.group = group;
+
+        if (spendAt == null) {
+            ;
+        }
+
     }
 
     public HashMap<User, Money> getParticipantsDept() {
@@ -58,12 +71,12 @@ public class Expense {
         return  debtsDict;
     }
 
-    public Integer getId() {
+    public ExpenseId getId() {
         return id;
     }
 
-    public User getPayer() {
-        return payer;
+    public UserId getPaidBy() {
+        return paidBy;
     }
 
     public Money getAmount() {
@@ -77,13 +90,12 @@ public class Expense {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof Expense)) return false;
-        return  (this.id != null && Objects.equals(this.id, ((Expense) obj).getId()));
+        if (!(obj instanceof ExpenseId)) return false;
+        return  Integer.parseInt(id.id()) == Integer.parseInt(((ExpenseId) obj).id());
     }
 
     @Override
     public int hashCode() {
-        if (id == null) return 11;
         return Objects.hash(id);
     }
 

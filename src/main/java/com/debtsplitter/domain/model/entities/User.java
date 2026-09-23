@@ -1,11 +1,15 @@
 package com.debtsplitter.domain.model.entities;
 
+import com.debtsplitter.domain.model.valueObjects.GroupId;
+import com.debtsplitter.domain.model.valueObjects.UserId;
+
 import java.util.Objects;
 import java.util.Random;
+import java.util.UUID;
 import java.util.function.Predicate;
 
 public class User {
-    final private Integer id;
+    final private UserId id;
     private String name;
     private String email;
 
@@ -13,7 +17,7 @@ public class User {
         return name;
     }
 
-    public Integer getId() {
+    public UserId getId() {
         return id;
     }
 
@@ -49,7 +53,7 @@ public class User {
 
     // TODO: We be edited in future
     public User(String name, String email) {
-        this.id = new Random().nextInt();
+        this.id = new UserId(UUID.randomUUID().toString());
         setName(name);
         setEmail(email);
     }
@@ -63,7 +67,7 @@ public class User {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof User)) return false;
-        return this.id != null && this.id.equals(((User) obj).getId());
+        if (!(obj instanceof UserId)) return false;
+        return (this.id != null && Integer.parseInt(id.id()) == Integer.parseInt(((UserId) obj).id()));
     }
 }
