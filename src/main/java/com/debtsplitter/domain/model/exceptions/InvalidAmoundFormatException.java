@@ -1,4 +1,4 @@
-package com.debtsplitter.domain.exceptions;
+package com.debtsplitter.domain.model.exceptions;
 
 public class InvalidAmoundFormatException extends DomainException {
     private final static String validFormat = "0.1";

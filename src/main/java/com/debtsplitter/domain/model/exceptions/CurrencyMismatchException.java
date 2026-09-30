@@ -1,4 +1,4 @@
-package com.debtsplitter.domain.exceptions;
+package com.debtsplitter.domain.model.exceptions;
 
 import java.util.Currency;
 
