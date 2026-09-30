@@ -1,7 +1,6 @@
 package com.debtsplitter.domain.model.entities;
 
 import com.debtsplitter.domain.model.exceptions.NonPositiveAmountException;
-import com.debtsplitter.domain.model.exceptions.SelfDebtException;
 import com.debtsplitter.domain.model.valueObjects.*;
 import com.debtsplitter.domain.split.SplitType;
 
