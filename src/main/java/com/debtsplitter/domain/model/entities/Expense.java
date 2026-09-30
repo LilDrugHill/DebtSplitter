@@ -71,20 +71,6 @@ public class Expense {
         this.spendAt = Objects.requireNonNullElse(spendAt, createdAt);
     }
 
-//    public HashMap<User, Money> getParticipantsDept() {
-//        var guys = this.getGroup().getParticipants();
-//        var gCount = guys.size();
-//        List<Money> gAmounds = this.getAmount().divideOnParts(gCount);
-//
-//        var debtsDict = new HashMap<User, Money>();
-//
-//        for (int i = 0; i < gCount; i++) {
-//            debtsDict.put(guys.get(i), gAmounds.get(i));
-//        }
-//
-//        return  debtsDict;
-//    }
-
     public ExpenseId getId() {
         return id;
     }
