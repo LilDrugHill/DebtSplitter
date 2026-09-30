@@ -11,20 +11,40 @@ public class InMemoryExpenseRepository implements ExpenseRepository {
 
     private final Map<ExpenseId, Expense> storage = new HashMap<>();
 
+    public Map<ExpenseId, Expense> getStorage() {
+        return Map.copyOf(storage);
+    }
+
+
     @Override
     public void save(Expense expense) {
+        storage.compute(expense.getId(),
+                (expenseId, expenseInner) -> {
+                    if (expenseInner != null) {
+                        System.out.printf("Expense with id: %s already exists, but replaced\n", expense.getId());
+                    }
+                    return expense;
+                });
 
+        System.out.printf("Expense with id: %s has been saved\n", expense.getId());
+    }
+
+    public void showAll() {
+        storage.forEach((expenseId, expenseInner) -> {
+            System.out.printf("Expense with id: %s\n", expenseId);
+        });
     }
 
     @Override
     public List<Expense> findByGroup(GroupId groupId) {
 
-        ArrayList<Expense> tempList = new ArrayList<>();
+        ArrayList<Expense> expenseList = new ArrayList<>();
 
         for(Expense entry : storage.values()) {
-            if (entry.getGroupId() == groupId.id()) tempList.add(entry);
+            if (entry.getGroupId().equals(groupId)) expenseList.add(entry);
         }
-        return List.copyOf(tempList);
+
+        return expenseList;
     }
 
     @Override

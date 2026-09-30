@@ -87,6 +87,14 @@ public class Money implements Comparable<Money> {
         return store;
     }
 
+    public Money abs() {
+        return new Money(amount.abs(), currency);
+    }
+
+    public static Money zero() {
+        return Money.of("0");
+    }
+
     @Override
     public int compareTo(Money o) {
         currencyMismatchThrower(this.currency, o.currency);

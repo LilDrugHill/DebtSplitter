@@ -37,9 +37,6 @@ public class Group {
 
         setName(name);
 
-        if (tempParticipant.isEmpty()) {
-            throw new IllegalArgumentException("participants cannot be null");
-        }
         if (tempParticipant.size() < 2) {
             throw new IllegalArgumentException("participants must have at least 2 participants");
         }

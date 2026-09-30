@@ -15,24 +15,17 @@ public class Expense {
     final private UserId paidBy;
     final private Money amount;
     final private GroupId groupId;
+    final private SplitType splitType;
+    final private List<Share> shares;
 
     private String description;
-    private SplitType splitType;
-    private List<Share> shares;
 
-    private Instant createdAt;
-    private Instant spendAt;
+    private final Instant createdAt;
+    private final Instant spendAt;
 
 
-    public Expense(UserId paidBy, Money amount, GroupId group, Instant spendAt) {
-        this(paidBy, amount, group);
-
-        if (spendAt != null) {
-            this.spendAt = spendAt;
-        }
-    }
-
-    public Expense(UserId paidBy, Money amount, GroupId groupId) {
+    public Expense(UserId paidBy, Money amount, GroupId groupId,
+                   SplitType splitType, List<Share> shares, String description, Instant createdAt, Instant spendAt) {
 
         this.id = new ExpenseId(UUID.randomUUID().toString());
 
@@ -56,13 +49,27 @@ public class Expense {
         if (groupId == null) {
             throw  new IllegalArgumentException("group is null");
         }
-
         this.groupId = groupId;
 
+        if (splitType == null) {
+            throw  new IllegalArgumentException("splitType is null");
+        }
+        this.splitType = splitType;
 
-        var clock = Clock.systemDefaultZone();
-        createdAt = clock.instant();
-        spendAt = Clock.fixed(createdAt, clock.getZone()).instant();
+
+        var tempShares = List.copyOf(shares);
+        if (tempShares.size() < 2) {
+            throw new IllegalArgumentException("Shares must have at least 2 Shares");
+        }
+        this.shares = tempShares;
+
+        this.description = (description == null) ? "" : description;
+
+
+        Objects.requireNonNull(createdAt, "createdAt is null");
+        this.createdAt = createdAt;
+
+        this.spendAt = Objects.requireNonNullElse(spendAt, createdAt);
     }
 
 //    public HashMap<User, Money> getParticipantsDept() {
@@ -91,12 +98,24 @@ public class Expense {
         return amount;
     }
 
-    public GroupId getGroup() {
+    public GroupId getGroupId() {
         return groupId;
+    }
+
+    public SplitType getSplitType() {
+        return splitType;
     }
 
     public Instant getCreatedAt() { return Clock.fixed(createdAt, ZoneId.systemDefault()).instant(); }
     public Instant getSpendAt() { return Clock.fixed(spendAt, ZoneId.systemDefault()).instant(); }
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = (description == null) ? "" : description;
+    }
+    // immutable set in contractor
+    public List<Share> getShares() { return shares; }
 
     @Override
     public boolean equals(Object obj) {
